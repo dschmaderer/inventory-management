@@ -124,10 +124,11 @@ const handleLogout = () => {
   display: flex;
   align-items: center;
   gap: 0.625rem;
-  padding: 0.5rem 0.875rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  height: var(--control-height);
+  padding: 0 0.625rem 0 var(--space-1);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -139,8 +140,8 @@ const handleLogout = () => {
 }
 
 .avatar {
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
   color: white;
@@ -153,6 +154,7 @@ const handleLogout = () => {
 }
 
 .profile-name {
+  white-space: nowrap;
   font-size: 0.875rem;
   font-weight: 500;
   color: #0f172a;
@@ -167,8 +169,21 @@ const handleLogout = () => {
   transform: rotate(180deg);
 }
 
+@media (max-width: 640px) {
+  /* Avatar-only trigger on phones so the name never wraps or crowds the top bar */
+  .profile-name {
+    display: none;
+  }
+
+  .profile-button {
+    padding: 0 var(--space-2) 0 var(--space-1);
+    gap: var(--space-1);
+  }
+}
+
 .dropdown-menu {
   position: absolute;
+  max-width: calc(100vw - 2rem);
   top: calc(100% + 0.5rem);
   right: 0;
   min-width: 280px;

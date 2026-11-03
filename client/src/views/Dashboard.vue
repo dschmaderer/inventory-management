@@ -752,10 +752,35 @@ export default {
   margin-bottom: 1rem;
 }
 
+/* The dashboard always shows 5 KPI cards. Explicit column counts per width
+   avoid the 4+1 wrap that auto-fit produced next to the sidebar. */
 .kpi-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 1rem;
+}
+
+@media (max-width: 1279px) {
+  /* 6-column track: three cards on the first row, the last two share row two evenly */
+  .kpi-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .kpi-grid > .kpi-card {
+    grid-column: span 2;
+  }
+  .kpi-grid > .kpi-card:nth-child(n + 4) {
+    grid-column: span 3;
+  }
+}
+
+@media (max-width: 639px) {
+  .kpi-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .kpi-grid > .kpi-card,
+  .kpi-grid > .kpi-card:nth-child(n + 4) {
+    grid-column: auto;
+  }
 }
 
 .kpi-card {
@@ -778,7 +803,9 @@ export default {
 }
 
 .kpi-value {
-  font-size: 2rem;
+  /* Fluid size so long currency values (e.g. $31,166,853) fit five-up */
+  font-size: clamp(1.375rem, 1.9vw, 2rem);
+  overflow-wrap: anywhere;
   font-weight: 700;
   color: #0f172a;
   margin-bottom: 0.5rem;
@@ -810,11 +837,19 @@ export default {
   background: #10b981;
 }
 
+/* minmax(0, 1fr) stops wide tables from stretching the grid tracks past the
+   viewport; the table-container inside each card scrolls instead. */
 .charts-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1.25rem;
   margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1023px) {
+  .charts-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .chart-card.full-width {
@@ -860,11 +895,18 @@ export default {
 /* Order Health Dashboard Styles */
 .order-health-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 1.5rem;
   align-items: center;
   padding: 1rem;
   min-height: 240px;
+}
+
+@media (max-width: 639px) {
+  /* Donut above the metrics so large currency values keep their width */
+  .order-health-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .order-health-chart {

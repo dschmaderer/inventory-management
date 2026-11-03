@@ -374,6 +374,8 @@ export default {
   justify-content: space-around;
   height: 250px;
   gap: 0.5rem;
+  /* 12 month bars need more than a phone width; scroll inside the chart, not the page */
+  overflow-x: auto;
 }
 
 .bar-wrapper {

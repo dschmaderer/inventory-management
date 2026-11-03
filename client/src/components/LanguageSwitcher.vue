@@ -97,10 +97,12 @@ const selectLanguage = (locale) => {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.5rem 0.875rem;
-  background: white;
-  border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  height: var(--control-height);
+  padding: 0 var(--space-3);
+  white-space: nowrap;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
@@ -116,6 +118,13 @@ const selectLanguage = (locale) => {
 .globe-icon {
   color: #64748b;
   flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+  /* Globe + chevron only on phones */
+  .language-label {
+    display: none;
+  }
 }
 
 .language-label {
