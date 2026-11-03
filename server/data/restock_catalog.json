@@ -1,0 +1,11 @@
+[
+  {"sku": "WDG-001", "category": "Widgets", "unit_cost": 15.00},
+  {"sku": "BRG-102", "category": "Components", "unit_cost": 55.00},
+  {"sku": "GSK-203", "category": "Components", "unit_cost": 8.00},
+  {"sku": "MTR-304", "category": "Equipment", "unit_cost": 300.00},
+  {"sku": "FLT-405", "category": "Components", "unit_cost": 6.00},
+  {"sku": "VLV-506", "category": "Components", "unit_cost": 40.00},
+  {"sku": "PSU-501", "category": "Power Supplies", "unit_cost": 12.00},
+  {"sku": "SNR-420", "category": "Sensors", "unit_cost": 20.00},
+  {"sku": "CTL-330", "category": "Controllers", "unit_cost": 60.00}
+]

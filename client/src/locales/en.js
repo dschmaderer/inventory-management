@@ -6,6 +6,7 @@ export default {
     orders: 'Orders',
     finance: 'Finance',
     demandForecast: 'Demand Forecast',
+    restocking: 'Restocking',
     companyName: 'Catalyst Components',
     subtitle: 'Inventory Management System'
   },
@@ -112,6 +113,12 @@ export default {
     onTimeDelivery: 'On-Time Delivery',
     itemsCount: '{count} items',
     quantity: 'Qty',
+    submitted: {
+      title: 'Submitted Orders',
+      empty: 'No restock orders have been submitted yet.',
+      loadError: 'Failed to load submitted orders',
+      leadTime: 'Lead Time (days)'
+    },
     table: {
       orderNumber: 'Order Number',
       orderId: 'Order ID',
@@ -126,6 +133,45 @@ export default {
       status: 'Status',
       expectedDelivery: 'Expected Delivery',
       actualDelivery: 'Actual Delivery'
+    }
+  },
+
+  // Restocking
+  restocking: {
+    title: 'Restocking',
+    description: 'Recommended replenishment orders ranked by demand trend and shortfall, fitted to your budget',
+    globalFiltersNote: 'Global filters do not apply on this page.',
+    budget: 'Budget',
+    loadError: 'Failed to load recommendations',
+    empty: 'No restocking is recommended for this budget.',
+    table: {
+      sku: 'SKU',
+      name: 'Item',
+      trend: 'Trend',
+      onHand: 'On Hand',
+      shortfall: 'Shortfall',
+      quantity: 'Order Qty',
+      unitCost: 'Unit Cost',
+      lineTotal: 'Line Total',
+      leadTime: 'Lead Time (days)'
+    },
+    summary: {
+      orderTotal: 'Order Total',
+      budget: 'Budget',
+      remaining: 'Remaining Budget',
+      leadTime: 'Order Lead Time',
+      days: '{count} days',
+      itemsIncluded: 'Items Included'
+    },
+    overBudget: 'The order total exceeds the budget. Reduce quantities to place the order.',
+    placeOrder: 'Place Order',
+    placing: 'Placing order...',
+    orderFailed: 'Failed to place order',
+    confirmation: {
+      title: 'Order placed',
+      orderNumber: 'Order Number',
+      expectedDelivery: 'Expected Delivery',
+      viewOrders: 'View in Orders'
     }
   },
 
