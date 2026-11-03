@@ -24,6 +24,7 @@
         <div class="topbar-actions">
           <LanguageSwitcher />
           <ProfileMenu
+            :tasks="tasks"
             @show-profile-details="showProfileDetails = true"
             @show-tasks="showTasks = true"
           />
@@ -57,7 +58,6 @@
 <script>
 import { ref, onMounted, onBeforeUnmount, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { api } from './api'
 import { useAuth } from './composables/useAuth'
 import { useI18n } from './composables/useI18n'
 import FilterBar from './components/FilterBar.vue'
@@ -136,74 +136,31 @@ export default {
     onBeforeUnmount(() => document.removeEventListener('keydown', onKeydown))
     const showProfileDetails = ref(false)
     const showTasks = ref(false)
-    const apiTasks = ref([])
+    // Tasks are client-side demo state: there is no /api/tasks backend route
+    // (calling it 404'd on load). currentUser is a computed returning plain objects,
+    // so mutating its tasks never re-renders; keep a reactive copy here instead.
+    // It re-seeds when currentUser recomputes (locale change), which swaps the mock list.
+    const tasks = ref([])
+    watch(currentUser, (user) => {
+      tasks.value = user.tasks.map(task => ({ ...task }))
+    }, { immediate: true })
 
-    // Merge mock tasks from currentUser with API tasks
-    const tasks = computed(() => {
-      return [...currentUser.value.tasks, ...apiTasks.value]
-    })
-
-    const loadTasks = async () => {
-      try {
-        apiTasks.value = await api.getTasks()
-      } catch (err) {
-        console.error('Failed to load tasks:', err)
-      }
+    const addTask = (taskData) => {
+      // Ids are numeric (see useAuth.js mock tasks); use max + 1 to avoid collisions
+      const nextId = tasks.value.reduce((max, t) => Math.max(max, Number(t.id) || 0), 0) + 1
+      tasks.value.unshift({ ...taskData, id: nextId, status: 'pending' })
     }
 
-    const addTask = async (taskData) => {
-      try {
-        const newTask = await api.createTask(taskData)
-        // Add new task to the beginning of the array
-        apiTasks.value.unshift(newTask)
-      } catch (err) {
-        console.error('Failed to add task:', err)
-      }
+    const deleteTask = (taskId) => {
+      tasks.value = tasks.value.filter(t => t.id !== taskId)
     }
 
-    const deleteTask = async (taskId) => {
-      try {
-        // Check if it's a mock task (from currentUser)
-        const isMockTask = currentUser.value.tasks.some(t => t.id === taskId)
-
-        if (isMockTask) {
-          // Remove from mock tasks
-          const index = currentUser.value.tasks.findIndex(t => t.id === taskId)
-          if (index !== -1) {
-            currentUser.value.tasks.splice(index, 1)
-          }
-        } else {
-          // Remove from API tasks
-          await api.deleteTask(taskId)
-          apiTasks.value = apiTasks.value.filter(t => t.id !== taskId)
-        }
-      } catch (err) {
-        console.error('Failed to delete task:', err)
+    const toggleTask = (taskId) => {
+      const task = tasks.value.find(t => t.id === taskId)
+      if (task) {
+        task.status = task.status === 'pending' ? 'completed' : 'pending'
       }
     }
-
-    const toggleTask = async (taskId) => {
-      try {
-        // Check if it's a mock task (from currentUser)
-        const mockTask = currentUser.value.tasks.find(t => t.id === taskId)
-
-        if (mockTask) {
-          // Toggle mock task status
-          mockTask.status = mockTask.status === 'pending' ? 'completed' : 'pending'
-        } else {
-          // Toggle API task
-          const updatedTask = await api.toggleTask(taskId)
-          const index = apiTasks.value.findIndex(t => t.id === taskId)
-          if (index !== -1) {
-            apiTasks.value[index] = updatedTask
-          }
-        }
-      } catch (err) {
-        console.error('Failed to toggle task:', err)
-      }
-    }
-
-    onMounted(loadTasks)
 
     return {
       t,

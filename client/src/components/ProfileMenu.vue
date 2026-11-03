@@ -84,8 +84,15 @@ const { t } = useI18n()
 const isDropdownOpen = ref(false)
 const emit = defineEmits(['show-profile-details', 'show-tasks'])
 
+// App.vue owns the reactive task list; currentUser.tasks is a non-reactive snapshot,
+// so counting from it would leave the badge stale after add/toggle/delete.
+const props = defineProps({
+  tasks: { type: Array, default: null }
+})
+
 const pendingTaskCount = computed(() => {
-  return currentUser.value.tasks.filter(task => task.status === 'pending').length
+  const list = props.tasks ?? currentUser.value.tasks
+  return list.filter(task => task.status === 'pending').length
 })
 
 const toggleDropdown = () => {
