@@ -258,7 +258,7 @@ export default {
   position: relative;
   display: flex;
   align-items: center;
-  min-width: 300px;
+  min-width: min(300px, 100%);
 }
 
 .search-icon {

@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: sidebar-swap-only
+expected_outcome: |
+  Only the navigation placement changes: a working left sidebar replaces the top nav, header utilities and filters still work, and page content and logic are left alone.

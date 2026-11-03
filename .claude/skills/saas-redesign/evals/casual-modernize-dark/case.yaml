@@ -1,0 +1,4 @@
+schema_version: "1.1"
+name: casual-modernize-dark
+expected_outcome: |
+  The app gets a modern SaaS shell with a left sidebar even though the prompt never asks for one, plus working dark mode via tokens, with consistent spacing across pages.

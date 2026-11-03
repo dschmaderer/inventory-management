@@ -1,0 +1,87 @@
+/*
+ * Design tokens for the light, neutral SaaS look.
+ * Palette follows the project design system (slate neutrals, blue accent,
+ * green/blue/yellow/red status colors). Use these variables instead of
+ * literals in new or edited styles so a later tweak is a one-line change.
+ */
+:root {
+  /* Spacing: 4px base scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+
+  /* Radius and elevation */
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-md: 0 4px 12px rgb(15 23 42 / 0.08);
+  --shadow-lg: 0 10px 25px rgb(15 23 42 / 0.12);
+
+  /* Type scale */
+  --text-xs: 12px;
+  --text-sm: 13px;
+  --text-base: 14px;
+  --text-md: 16px;
+  --text-lg: 20px;
+  --text-xl: 24px;
+
+  /* Neutrals (slate) */
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --surface-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+  --text: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+
+  /* Accent (blue) */
+  --accent: #2563eb;
+  --accent-hover: #1d4ed8;
+  --accent-tint: #eff6ff;
+
+  /* Status colors with soft backgrounds for badges */
+  --success: #059669;
+  --success-bg: #d1fae5;
+  --success-text: #065f46;
+  --info: #2563eb;
+  --info-bg: #dbeafe;
+  --info-text: #1e40af;
+  --warning: #ea580c;
+  --warning-bg: #fed7aa;
+  --warning-text: #92400e;
+  --danger: #dc2626;
+  --danger-bg: #fecaca;
+  --danger-text: #991b1b;
+
+  /* Shell dimensions */
+  --sidebar-width: 256px;
+  --sidebar-width-collapsed: 72px;
+  --topbar-height: 56px;
+  --control-height: 36px;
+  --content-max-width: 1440px;
+
+  /*
+   * z-index scale. Existing modals/dropdowns use 1000 (TasksModal, menus) and
+   * 2000 (detail modals), so --z-modal stays at 1000 and the shell sits well below.
+   */
+  --z-toolbar: 25;
+  --z-sidebar: 30;
+  --z-topbar: 35;
+  --z-backdrop: 40;
+  --z-drawer: 50;
+  --z-modal: 1000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

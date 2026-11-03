@@ -35,5 +35,13 @@ recent_transactions = load_json_file('transactions.json')
 # Load purchase orders
 purchase_orders = load_json_file('purchase_orders.json')
 
+# Cost and category per forecast SKU. inventory.json only covers one forecast SKU,
+# so restocking needs this separate catalog to price recommendations.
+restock_catalog = load_json_file('restock_catalog.json')
+
+# Submitted restocking orders. Mutated at runtime by POST /api/restock-orders and
+# reset on server restart (no persistence, like the rest of the mock data).
+restock_orders = []
+
 # All data is now loaded from JSON files in the data/ directory
 # This allows for easier maintenance and updates of the sample data
